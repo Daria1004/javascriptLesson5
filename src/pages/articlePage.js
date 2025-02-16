@@ -6,10 +6,8 @@ export class ArticlePage {
         this.card = page.locator('div.card').last();
         this.commentText = this.card.locator('p.card-text');
         this.commentAuthor = this.card.locator('a.comment-author').last();
-        //this.author = page.getByRole('link', { name: 'Ivan Durian' });
         this.buttonDelete = page.getByRole('button', { name: 'Delete Article' });
         this.buttonEdit = page.getByRole('button', { name: 'Edit Article' });
-
     }   
 
     async addComment(body){

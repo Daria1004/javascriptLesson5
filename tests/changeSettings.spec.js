@@ -1,38 +1,33 @@
 import { test, expect } from '@playwright/test';
-import { faker } from '@faker-js/faker';
-import { SettingsPage } from '../src/pages/settingsPage';
-import { MainPage } from '../src/pages/mainPage';
-import { RegisterPage } from '../src/pages/registerPage';
-import { YourfeedPage } from '../src/pages/yourfeedPage';
-import { LoginPage } from '../src/pages/loginPage';
+import { LoginPage, MainPage, RegisterPage, SettingsPage, YourfeedPage } from '../src/pages/index';
+import { UserBuilder } from '../src/helpers/builder/index';
 
 const URL_UI = 'https://realworld.qa.guru/';
-const user = {
-    username:  faker.person.firstName(),
-    email:  faker.internet.email(),
-    password: faker.internet.password({ length: 10 }),
-};
+const userBuilder = new UserBuilder()
+    .addEmail()
+    .addUsername()
+    .addPassword()
+    .generate();
 
-test.describe('Профиль ползователя', () => {
+test.describe('Профиль пользователя', () => {
     test.beforeEach(async ({ page }) => {
         const mainPage = new MainPage(page);
         const registerPage = new RegisterPage(page);
-        const yourfeedPage = new YourfeedPage(page, user);
-       
+
         await mainPage.open(URL_UI);
         await mainPage.gotoRegister();
-        await registerPage.register(user.username, user.email, user.password);
-       });    
+        await registerPage.register(userBuilder.username, userBuilder.email, userBuilder.password);
+    });    
     
     test('Пользователь может изменить пароль', async ({ page }) => {
-        const yourfeedPage = new YourfeedPage(page, user);
+        const yourfeedPage = new YourfeedPage(page);
         const settingsPage = new SettingsPage(page);
-        const newPassword = faker.internet.password({ length: 5})
+        const newPassword = new UserBuilder().addNewPassword().getNewPassword();
         const mainPage = new MainPage(page);
         const loginPage = new LoginPage(page);
 
         await expect(yourfeedPage.profileNameField).toBeVisible();
-        await expect(yourfeedPage.profileNameField).toContainText(user.username);
+        await expect(yourfeedPage.profileNameField).toContainText(userBuilder.username);
   
         //  открыть страницу settings;
         await yourfeedPage.gotoSettings();
@@ -48,8 +43,8 @@ test.describe('Профиль ползователя', () => {
 
         // залогиниться
         await mainPage.gotoLogin();
-        await loginPage.signin(user.email, newPassword);
+        await loginPage.signin(userBuilder.email, newPassword);
         await expect(yourfeedPage.profileNameField).toBeVisible();
-        await expect(yourfeedPage.profileNameField).toContainText(user.username);
+        await expect(yourfeedPage.profileNameField).toContainText(userBuilder.username);
     });   
 });
