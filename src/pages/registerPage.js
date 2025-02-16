@@ -17,7 +17,4 @@ export class RegisterPage {
         await this.passwordField.fill(password);
         await this.signupButton.click();
     }
-    async open(url){
-        await this.page.goto(url);
-    }
 }

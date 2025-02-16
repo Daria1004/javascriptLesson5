@@ -13,7 +13,7 @@ const user = {
     password: faker.internet.password({ length: 10 }),
 };
 
-test.describe('Шаблон', () => {
+test.describe('Профиль ползователя', () => {
     test.beforeEach(async ({ page }) => {
         const mainPage = new MainPage(page);
         const registerPage = new RegisterPage(page);
@@ -22,9 +22,7 @@ test.describe('Шаблон', () => {
         await mainPage.open(URL_UI);
         await mainPage.gotoRegister();
         await registerPage.register(user.username, user.email, user.password);
-        await expect(yourfeedPage.profileNameField).toBeVisible();
-        await expect(yourfeedPage.profileNameField).toContainText(user.username);
-      });    
+       });    
     
     test('Пользователь может изменить пароль', async ({ page }) => {
         const yourfeedPage = new YourfeedPage(page, user);
@@ -33,8 +31,10 @@ test.describe('Шаблон', () => {
         const mainPage = new MainPage(page);
         const loginPage = new LoginPage(page);
 
-
-    //  открыть страницу settings;
+        await expect(yourfeedPage.profileNameField).toBeVisible();
+        await expect(yourfeedPage.profileNameField).toContainText(user.username);
+  
+        //  открыть страницу settings;
         await yourfeedPage.gotoSettings();
         await expect(settingsPage.banner).toBeVisible();
         await expect(settingsPage.banner).toContainText('Your Settings')
@@ -43,10 +43,10 @@ test.describe('Шаблон', () => {
         await expect(settingsPage.banner).toBeVisible();
         await expect(settingsPage.banner).toContainText('Your Settings')
 
-    // разлогиниться
+        // разлогиниться
         await yourfeedPage.gotoLogout();
 
-    // залогиниться
+        // залогиниться
         await mainPage.gotoLogin();
         await loginPage.signin(user.email, newPassword);
         await expect(yourfeedPage.profileNameField).toBeVisible();

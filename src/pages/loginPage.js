@@ -1,5 +1,4 @@
 export class LoginPage {
-    
     constructor(page){
         this.page = page;
         this.emailField = page.getByPlaceholder('Email');
@@ -14,8 +13,5 @@ export class LoginPage {
         await this.passwordField.click();
         await this.passwordField.fill(newPassword);
         await this.loginButton.click();
-    }
-    async open(url){
-        await this.page.goto(url);
     }
 }

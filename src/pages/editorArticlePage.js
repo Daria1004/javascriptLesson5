@@ -11,11 +11,6 @@ export class EditorArticlePage {
         this.submitButton = page.getByRole('button', { name: 'Publish Article' });
         this.header = page.getByRole("heading", {level: 1});
     }   
-    
-    async open(){
-        await this.newArticleButton.click();
-        //await page.getByRole('link', { name: 'New Article'}).click();
-    }
 
     async fillForm(article){
         await this.titleField.click();
