@@ -6,10 +6,10 @@ import { RegisterPage } from '../src/pages/registerPage.js';
 import { ArticlePage } from '../src/pages/articlePage.js';
 import { YourfeedPage } from '../src/pages/yourfeedPage.js';
 
-const  URL_UI = 'https://realworld.qa.guru/';
+const URL_UI = 'https://realworld.qa.guru/';
 const user = {
-    username:  faker.person.firstName(),
-    email:  faker.internet.email(),
+    username: faker.person.firstName(),
+    email: faker.internet.email(),
     password: faker.internet.password({ length: 10 }),
 };
 
@@ -25,16 +25,14 @@ test.describe('Тесты Статьи', () => {
         await registerPage.register(user.username, user.email, user.password);
     });
 
- 
-    test('Пользователь может опубликовать статью', async ({ 
-        page 
-    }) => {
+
+    test('Пользователь может опубликовать статью', async ({page}) => {
         const editorArticlePage = new EditorArticlePage(page);
         const yourfeedPage = new YourfeedPage(page);
 
         const article = {
-            title:  faker.book.title() + '_ivandurian',
-            description:  faker.lorem.paragraph(1),
+            title: faker.book.title() + '_ivandurian',
+            description: faker.lorem.paragraph(1),
             body: faker.lorem.paragraph(5),
             tags: 'реклама'
         };
@@ -45,15 +43,13 @@ test.describe('Тесты Статьи', () => {
 
         await expect(editorArticlePage.header).toBeVisible();
         await expect(editorArticlePage.header).toContainText(article.title);
-    })
+    });
 
-    test('Пользователь может оставить комментарий к первой статье в Global Feed', async ({ 
-        page 
-    }) => {
+    test('Пользователь может оставить комментарий к первой статье в Global Feed', async ({page}) => {
         const articlePage = new ArticlePage(page);
         const yourfeedPage = new YourfeedPage(page);
 
-        const comment = faker.lorem.sentence()
+        const comment = faker.lorem.sentence();
 
         await yourfeedPage.openGlobalArticle();
         await articlePage.addComment(comment);
@@ -62,19 +58,17 @@ test.describe('Тесты Статьи', () => {
         await expect(articlePage.commentText).toContainText(comment);
         await expect(articlePage.commentAuthor).toBeVisible();
         await expect(articlePage.commentAuthor).toContainText(user.username);
-    })
+    });
 
-    test('Пользователь может оставить комментарий к своей статье', async ({ 
-        page 
-    }) => {
+    test('Пользователь может оставить комментарий к своей статье', async ({page}) => {
 
         // создание статьи
         const editorArticlePage = new EditorArticlePage(page);
         const yourfeedPage = new YourfeedPage(page);
 
         const article = {
-            title:  faker.book.title() + '_ivandurian',
-            description:  faker.lorem.paragraph(1),
+            title: faker.book.title() + '_ivandurian',
+            description: faker.lorem.paragraph(1),
             body: faker.lorem.paragraph(5),
             tags: 'реклама'
         };
@@ -89,7 +83,7 @@ test.describe('Тесты Статьи', () => {
         // добавление комментария
         const articlePage = new ArticlePage(page);
 
-        const comment = faker.lorem.sentence()
+        const comment = faker.lorem.sentence();
 
         await articlePage.addComment(comment);
 
@@ -97,18 +91,5 @@ test.describe('Тесты Статьи', () => {
         await expect(articlePage.commentText).toContainText(comment);
         await expect(articlePage.commentAuthor).toBeVisible();
         await expect(articlePage.commentAuthor).toContainText(user.username);
-
-        /*
-        const articlePage = new ArticlePage(page);
-
-        const comment = faker.lorem.sentence()
-
-        await articlePage.open();
-        await articlePage.addComment(comment);
-
-        await expect(articlePage.card.locator('p.card-text')).toBeVisible();
-        await expect(articlePage.card.locator('p.card-text')).toContainText(comment);
-        await expect(articlePage.card.locator('a.comment-author').last()).toBeVisible();
-        await expect(articlePage.card.locator('a.comment-author').last()).toContainText(user.username);
-    */})
+    });
 });

@@ -7,7 +7,6 @@ export class RegisterPage {
 
         this.signupButton = page.getByRole('button', { name: 'Sign up' });
     }   
-    // todo 
     async register(username, email, password){
         await this.usernameField .click();
         await this.usernameField .fill(username);

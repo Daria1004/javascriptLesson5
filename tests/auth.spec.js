@@ -6,9 +6,7 @@ import { YourfeedPage } from '../src/pages/yourfeedPage';
 
 const  URL_UI = 'https://realworld.qa.guru/';
 
-test('Регистрация пользователя, логин и пароль валидны', async ({ 
-    page 
-}) => {
+test('Регистрация пользователя, логин и пароль валидны', async ({page}) => {
     const user = {
         username:  faker.person.firstName(),
         email:  faker.internet.email(),

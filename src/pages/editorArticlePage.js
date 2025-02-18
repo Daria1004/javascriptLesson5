@@ -15,7 +15,6 @@ export class EditorArticlePage {
     async fillForm(article){
         await this.titleField.click();
         await this.titleField.fill(article.title);
-        //await page.getByPlaceholder('Article Title').fill(title);
         await this.descriptionField.click();
         await this.descriptionField.fill(article.description);
         await this.bodyField.click();
@@ -26,6 +25,5 @@ export class EditorArticlePage {
 
     async publish(){
         await this.submitButton.click();
-    }
-    
+    }  
 }

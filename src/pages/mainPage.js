@@ -4,7 +4,6 @@ export class MainPage {
         this.signupButton = page.getByRole('link', { name: 'Sign up' });
         this.banner = page.locator('div.banner').locator('p');
         this.loginButton = page.getByRole('link', { name: 'Login' });
-
     }   
 
     async gotoRegister(){
