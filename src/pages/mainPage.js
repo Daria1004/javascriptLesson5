@@ -1,4 +1,5 @@
 export class MainPage {
+    
     constructor(page){
         this.page = page;
         this.signupButton = page.getByRole('link', { name: 'Sign up' });
