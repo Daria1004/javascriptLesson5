@@ -22,10 +22,7 @@ test.describe('Тесты Статьи', () => {
         await registerPage.register(userBuilder.username, userBuilder.email, userBuilder.password);
     });
 
- 
-    test('Пользователь может опубликовать статью', async ({ 
-        page 
-    }) => {
+    test('Пользователь может опубликовать статью', async ({page}) => {
         const editorArticlePage = new EditorArticlePage(page);
         const yourfeedPage = new YourfeedPage(page);
 
@@ -44,9 +41,7 @@ test.describe('Тесты Статьи', () => {
         await expect(editorArticlePage.header).toContainText(articleBuilder.title);
     })
 
-    test('Пользователь может оставить комментарий к первой статье в Global Feed', async ({ 
-        page 
-    }) => {
+    test('Пользователь может оставить комментарий к первой статье в Global Feed', async ({page}) => {
         const articlePage = new ArticlePage(page);
         const yourfeedPage = new YourfeedPage(page);
 
@@ -63,9 +58,7 @@ test.describe('Тесты Статьи', () => {
         await expect(articlePage.commentAuthor).toContainText(userBuilder.username);
     })
 
-    test('Пользователь может оставить комментарий к своей статье', async ({ 
-        page 
-    }) => {
+    test('Пользователь может оставить комментарий к своей статье', async ({page}) => {
 
         // создание статьи
         const editorArticlePage = new EditorArticlePage(page);

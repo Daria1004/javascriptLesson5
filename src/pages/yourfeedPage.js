@@ -11,7 +11,6 @@ export class YourfeedPage {
         this.buttonGlobalFeed = page.getByRole('button', { name: 'Global Feed' });
         this.linkFirstArticle = page.locator('a.preview-link').first();
         this.firstArticle = page.locator('.article-preview').first();
-
     }   
 
     async gotoNewArticle(){
