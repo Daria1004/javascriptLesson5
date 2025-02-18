@@ -1,4 +1,5 @@
 export class EditorArticlePage {
+    
     constructor(page){
         this.page = page;
         this.newArticleButton = page.getByRole('link', { name: 'New Article'});
