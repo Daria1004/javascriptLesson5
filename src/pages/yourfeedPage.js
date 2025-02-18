@@ -1,6 +1,6 @@
 export class YourfeedPage {
-
-    constructor(page, user){
+    
+    constructor(page){
         this.page = page;
         this.profileNameField = page.getByRole('navigation');
         this.newArticleButton = page.getByRole('link', { name: 'New Article'});
